@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--mysql驱动包-->
+    <classPathEntry
+            location="/Users/wukai/Downloads/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46.jar"/>
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接信息-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://120.26.59.134:3306/souche_shield_manager" userId="shield_rw"
+                        password="5qzxkWc0pt7fcgQQ"/>
+
+        <!--model信息生成-->
+        <javaModelGenerator targetPackage="com.souche.shield.manager.dao"
+                            targetProject="/Users/wukai/workspace/shield-saas/souche-shield-manager">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+      
+        <!--sqlmapper文件生成-->
+        <sqlMapGenerator targetPackage="com.souche.shield.manager.dao"
+            targetProject="/Users/wukai/workspace/shield-saas/souche-shield-manager" />
+
+       <!--dao文件生成-->
+        <javaClientGenerator
+            targetPackage="com.souche.shield.manager.dao"
+            targetProject="/Users/wukai/workspace/shield-saas/souche-shield-manager"
+            type="XMLMAPPER" />
+
+        <!--表格配置-->
+        <table tableName="security_org_version" domainObjectName="OrgVersion"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            
+        </table>
+    </context>
+</generatorConfiguration>

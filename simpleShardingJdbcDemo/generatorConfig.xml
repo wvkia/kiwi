@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="/Users/wukai/Downloads/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46.jar"/>
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://120.26.59.134:3306/souche_shield_manager" userId="shield_rw"
+                        password="5qzxkWc0pt7fcgQQ"/>
+
+        <javaModelGenerator targetPackage="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.mapper"
+                            targetProject="/Users/wukai/wukaiWorkSpace/kiwi/shardingjdbcdemo">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+      
+
+<sqlMapGenerator targetPackage="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.mapper"
+            targetProject="/Users/wukai/wukaiWorkSpace/kiwi/shardingjdbcdemo" />
+
+       
+        <javaClientGenerator
+            targetPackage="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.mapper"
+            targetProject="/Users/wukai/wukaiWorkSpace/kiwi/shardingjdbcdemo"
+            type="XMLMAPPER" />
+        
+        <table tableName="order" domainObjectName="OrderDo"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            
+        </table>
+
+    </context>
+</generatorConfiguration>
