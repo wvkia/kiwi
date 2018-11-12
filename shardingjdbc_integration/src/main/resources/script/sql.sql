@@ -10,6 +10,12 @@ CREATE TABLE `user_1` (
   `desc` varchar(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `user_2` (
+  `id` int(11) primary key,
+  `name` varchar(200) DEFAULT NULL,
+  `desc` varchar(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `order_0` (
   `id` varchar(255) primary key,

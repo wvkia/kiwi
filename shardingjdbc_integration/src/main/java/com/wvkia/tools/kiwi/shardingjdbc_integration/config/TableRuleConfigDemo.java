@@ -1,12 +1,10 @@
 package com.wvkia.tools.kiwi.shardingjdbc_integration.config;
 
-import com.dangdang.ddframe.rdb.sharding.api.MasterSlaveDataSourceFactory;
 import com.dangdang.ddframe.rdb.sharding.api.ShardingDataSourceFactory;
 import com.dangdang.ddframe.rdb.sharding.api.rule.DataSourceRule;
 import com.dangdang.ddframe.rdb.sharding.api.rule.ShardingRule;
 import com.dangdang.ddframe.rdb.sharding.api.rule.TableRule;
 import com.dangdang.ddframe.rdb.sharding.api.strategy.database.DatabaseShardingStrategy;
-import com.dangdang.ddframe.rdb.sharding.api.strategy.slave.MasterSlaveLoadBalanceStrategyType;
 import com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy;
 import com.google.common.collect.Lists;
 import com.wvkia.tools.kiwi.shardingjdbc_integration.shardingjdbc.order.OrderDatabaseShardingAlgorithm;
@@ -33,9 +31,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@Configuration
-//@MapperScan(basePackages = "com.wvkia.tools.kiwi.shardingjdbc_integration.mapper",sqlSessionTemplateRef="sqlSessionTemplate")
-public class TableRuleConfig {
+@Configuration
+@MapperScan(basePackages = "com.wvkia.tools.kiwi.shardingjdbc_integration.mapper",sqlSessionTemplateRef="sqlSessionTemplate")
+public class TableRuleConfigDemo {
 
     /**配置主master database**/
     @Bean(name="database_0_master")
@@ -44,49 +42,20 @@ public class TableRuleConfig {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name="database_0_slave_0")
-    @ConfigurationProperties("spring.datasource0.slave0")
-    public DataSource database_0_slave_0(){
-        return DataSourceBuilder.create().build();
-    }
-
-
 
     @Bean(name="database_1_master")
     @ConfigurationProperties("spring.datasource1.master")
     public DataSource database_1_master(){
         return DataSourceBuilder.create().build();
     }
-
-    @Bean(name="database_1_slave_0")
-    @ConfigurationProperties("spring.datasource1.slave0")
-    public DataSource database_1_slave_0(){
-        return DataSourceBuilder.create().build();
-    }
-
     @Bean("dataSourceRule")
     public DataSourceRule dataSourceRule(@Qualifier("database_0_master") DataSource database_0_master,
-                                         @Qualifier("database_0_slave_0") DataSource database_0_slave_0,
-                                         @Qualifier("database_1_master") DataSource database_1_master,
-                                         @Qualifier("database_1_slave_0") DataSource database_1_slave_0) throws SQLException {
-
-        Map<String, DataSource> slave0DataBase = new HashMap<>(1);
-        slave0DataBase.put("database_0_slave_0", database_0_slave_0);
-
-        //创建主从数据库链接
-        DataSource database0 = MasterSlaveDataSourceFactory.createDataSource("database_0_master","database_0_master", database_0_master, slave0DataBase, MasterSlaveLoadBalanceStrategyType.ROUND_ROBIN);
-
-
-        Map<String, DataSource> slave1DataBase = new HashMap<>(1);
-        slave0DataBase.put("database_1_slave_0", database_1_slave_0);
-
-        //创建主从数据库链接
-        DataSource database1 = MasterSlaveDataSourceFactory.createDataSource("database_1_master","database_1_master", database_1_master, slave1DataBase, MasterSlaveLoadBalanceStrategyType.ROUND_ROBIN);
+                                         @Qualifier("database_1_master") DataSource database_1_master) throws SQLException {
 
 
         Map<String, DataSource> dataSourceMap = new HashMap<>(2);
-        dataSourceMap.put("database0", database0);
-        dataSourceMap.put("database1", database1);
+        dataSourceMap.put("database0", database_0_master);
+        dataSourceMap.put("database1", database_1_master);
 
         /** 配置数据源规则，即将多个数据源交给sharding-jdbc管理，并且可以设置默认的数据源，
          * 当表没有配置分库规则时会使用默认的数据源
@@ -148,7 +117,7 @@ public class TableRuleConfig {
      * 加入该注解确保datasouce0和datsource1在datasource之前被实例化
      */
     @Bean("dataSource")
-    @DependsOn({"database_0_master","database_0_slave_0","database_1_master","database_1_slave_0"})
+    @DependsOn({"database_0_master","database_1_master"})
     public DataSource dataSource(DataSourceRule dataSourceRule,List<TableRule> tableRuleList) throws SQLException {
         ShardingRule shardingRule = ShardingRule.builder()
                 .tableRules(tableRuleList)
