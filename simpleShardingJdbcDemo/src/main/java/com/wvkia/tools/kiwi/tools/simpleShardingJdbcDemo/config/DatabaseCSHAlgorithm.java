@@ -6,12 +6,14 @@ import com.google.common.hash.Hashing;
 import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.tools.ConsistentHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 @Component
+@DependsOn({"dataSource"})
 public class DatabaseCSHAlgorithm  implements ApplicationListener<ContextRefreshedEvent>{
     @Autowired
     private DataSourceRule dataSourceRule;
@@ -20,7 +22,7 @@ public class DatabaseCSHAlgorithm  implements ApplicationListener<ContextRefresh
 
     HashFunction hf = Hashing.md5();
 
-    int numberOfReplicas=5;
+    int numberOfReplicas=100;
 
 
     @Override

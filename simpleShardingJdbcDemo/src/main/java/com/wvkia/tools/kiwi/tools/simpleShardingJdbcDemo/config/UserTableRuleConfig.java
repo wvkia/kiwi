@@ -7,6 +7,8 @@ import com.dangdang.ddframe.rdb.sharding.api.rule.TableRule;
 import com.dangdang.ddframe.rdb.sharding.api.strategy.database.DatabaseShardingStrategy;
 import com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy;
 import com.google.common.collect.Lists;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.shardingjdbc.OrderDatabaseAlgorithm;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.shardingjdbc.OrderTableShardingAlgorithm;
 import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.shardingjdbc.UserDatabaseShardingAlgorithm;
 import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.shardingjdbc.UserTableShardingAlgorithm;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -93,8 +95,8 @@ public class UserTableRuleConfig {
     public TableRule orderTableRule(DataSourceRule dataSourceRule) {
         TableRule orderTableRule = TableRule.builder("order")
                 .actualTables(Lists.newArrayList("order_0", "order_1"))
-                .tableShardingStrategy(new TableShardingStrategy("id", new UserTableShardingAlgorithm()))
-                .databaseShardingStrategy(new DatabaseShardingStrategy("id", new UserDatabaseShardingAlgorithm()))
+                .tableShardingStrategy(new TableShardingStrategy("id", new OrderTableShardingAlgorithm()))
+                .databaseShardingStrategy(new DatabaseShardingStrategy("id", new OrderDatabaseAlgorithm()))
                 .dataSourceRule(dataSourceRule)
                 .build();
         return orderTableRule;

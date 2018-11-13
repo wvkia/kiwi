@@ -31,6 +31,10 @@ public class ConsistentHash<T> {
         }
     }
 
+    public  SortedMap getCircle(){
+        return circle;
+    }
+
     /**
      * 加入server节点
      * @param node
@@ -66,8 +70,11 @@ public class ConsistentHash<T> {
             //返回大于等于此hash后面的节点
             SortedMap<Integer, T> tailMap = circle.tailMap(hash);
 
+            System.out.println("原值："+key.toString()+" = "+hash);
             //如果还没有，则获取server节点分布圆的第一个节点
             hash = tailMap.isEmpty() ? circle.firstKey() : tailMap.firstKey();
+            System.out.println("获取节点 "+hash+" = "+circle.get(hash));
+            System.out.println("=====");
         }
         return circle.get(hash);
     }

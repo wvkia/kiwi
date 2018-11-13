@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.domain.UserDo" >
+<mapper namespace="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
@@ -66,7 +66,7 @@
   <sql id="Base_Column_List" >
     id, name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.example.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.example.UserExample" >
     select
     <if test="distinct" >
       distinct
@@ -91,17 +91,17 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.example.UserExample" >
+  <delete id="deleteByExample" parameterType="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.example.UserExample" >
     delete from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.domain.UserDo" >
+  <insert id="insert" parameterType="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo" >
     insert into user (id, name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.domain.UserDo" >
+  <insert id="insertSelective" parameterType="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -120,7 +120,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.example.UserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.example.UserExample" resultType="java.lang.Integer" >
     select count(*) from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -148,7 +148,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.domain.UserDo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo" >
     update user
     <set >
       <if test="name != null" >
@@ -157,7 +157,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.domain.UserDo" >
+  <update id="updateByPrimaryKey" parameterType="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo" >
     update test
     set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

@@ -13,7 +13,7 @@ public class OrderTableShardingAlgorithm implements SingleKeyTableShardingAlgori
 
     HashFunction hf = Hashing.md5();
 
-    int numberOfReplicas=5;
+    int numberOfReplicas=100;
 
     @Override
     public String doEqualSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {

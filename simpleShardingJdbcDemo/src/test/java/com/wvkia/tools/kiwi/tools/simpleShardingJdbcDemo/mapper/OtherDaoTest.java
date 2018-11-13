@@ -1,6 +1,6 @@
 package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper;
 
-import com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.domain.OtherDo;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.OtherDo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

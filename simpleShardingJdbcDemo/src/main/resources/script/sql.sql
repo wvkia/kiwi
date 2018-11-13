@@ -5,25 +5,31 @@ CREATE TABLE `user_0` (
   `id` int(200) NOT NULL,
   `name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 CREATE TABLE `user_1` (
   `id` int(200) NOT NULL,
   `name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 CREATE TABLE `other` (
   `id` int(11) NOT NULL,
   `name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
-CREATE TABLE `other` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `order_0` (
+  `id` varchar(200) NOT NULL,
   `name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
+
+CREATE TABLE `order_1` (
+  `id` varchar(200) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ;
 
 
 

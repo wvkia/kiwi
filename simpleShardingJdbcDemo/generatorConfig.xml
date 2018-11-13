@@ -16,7 +16,7 @@
                         connectionURL="jdbc:mysql://120.26.59.134:3306/souche_shield_manager" userId="shield_rw"
                         password="5qzxkWc0pt7fcgQQ"/>
 
-        <javaModelGenerator targetPackage="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.mapper"
+        <javaModelGenerator targetPackage="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper"
                             targetProject="/Users/wukai/wukaiWorkSpace/kiwi/shardingjdbcdemo">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
@@ -24,12 +24,12 @@
 
       
 
-<sqlMapGenerator targetPackage="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.mapper"
+<sqlMapGenerator targetPackage="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper"
             targetProject="/Users/wukai/wukaiWorkSpace/kiwi/shardingjdbcdemo" />
 
        
         <javaClientGenerator
-            targetPackage="com.wvkia.tools.kiwi.simpleShardingJdbcDemo.mapper"
+            targetPackage="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper"
             targetProject="/Users/wukai/wukaiWorkSpace/kiwi/shardingjdbcdemo"
             type="XMLMAPPER" />
         
