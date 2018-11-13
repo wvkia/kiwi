@@ -1,0 +1,36 @@
+package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.config;
+
+import com.dangdang.ddframe.rdb.sharding.api.rule.DataSourceRule;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.tools.ConsistentHash;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+
+@Component
+public class DatabaseCSHAlgorithm  implements ApplicationListener<ContextRefreshedEvent>{
+    @Autowired
+    private DataSourceRule dataSourceRule;
+
+    private static ConsistentHash<String> consistentHash ;
+
+    HashFunction hf = Hashing.md5();
+
+    int numberOfReplicas=5;
+
+
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        Collection<String> collection = dataSourceRule.getDataSourceNames();
+        consistentHash = new ConsistentHash(hf, numberOfReplicas, collection);
+    }
+
+    public static String getDatabase(Object key) {
+        return consistentHash.get(key);
+
+    }
+}

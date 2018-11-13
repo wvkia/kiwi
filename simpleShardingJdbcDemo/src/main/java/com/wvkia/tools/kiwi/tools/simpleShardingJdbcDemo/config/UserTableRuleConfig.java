@@ -26,6 +26,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -78,21 +79,32 @@ public class UserTableRuleConfig {
     }
 
     @Bean
-    public TableRule testTableRule(DataSourceRule dataSourceRule) {
-        TableRule testTableRule = TableRule.builder("user")
+    public TableRule userTableRule(DataSourceRule dataSourceRule) {
+        TableRule userTableRule = TableRule.builder("user")
                 .actualTables(Lists.newArrayList("user_0", "user_1"))
                 .tableShardingStrategy(new TableShardingStrategy("id", new UserTableShardingAlgorithm()))
                 .databaseShardingStrategy(new DatabaseShardingStrategy("id", new UserDatabaseShardingAlgorithm()))
                 .dataSourceRule(dataSourceRule)
                 .build();
-        return testTableRule;
+        return userTableRule;
     }
 
     @Bean
-    public ShardingRule shardingRule(DataSourceRule dataSourceRule,TableRule testTableRule) {
+    public TableRule orderTableRule(DataSourceRule dataSourceRule) {
+        TableRule orderTableRule = TableRule.builder("order")
+                .actualTables(Lists.newArrayList("order_0", "order_1"))
+                .tableShardingStrategy(new TableShardingStrategy("id", new UserTableShardingAlgorithm()))
+                .databaseShardingStrategy(new DatabaseShardingStrategy("id", new UserDatabaseShardingAlgorithm()))
+                .dataSourceRule(dataSourceRule)
+                .build();
+        return orderTableRule;
+    }
+
+    @Bean
+    public ShardingRule shardingRule(DataSourceRule dataSourceRule, List<TableRule>tableRules) {
         return ShardingRule.builder()
                 .dataSourceRule(dataSourceRule)
-                .tableRules(Lists.newArrayList(testTableRule))
+                .tableRules(tableRules)
                 .build();
     }
 

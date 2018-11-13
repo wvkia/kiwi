@@ -32,7 +32,7 @@ public class UserDatabaseShardingAlgorithm implements SingleKeyDatabaseShardingA
     public Collection<String> doInSharding(Collection<String> databaseNames, ShardingValue<Integer> shardingValue) {
         Collection<String> result = new LinkedHashSet<>(databaseNames.size());
         for (Integer value : shardingValue.getValues()) {
-            String i =(shardingValue.getValue() < 20 ? 0:1)+"";
+            String i =(value < 20 ? 0:1)+"";
             for (String tableName : databaseNames) {
                 if (tableName.endsWith(i)) {
                     result.add(tableName);
@@ -48,7 +48,7 @@ public class UserDatabaseShardingAlgorithm implements SingleKeyDatabaseShardingA
         Collection<String> result = new LinkedHashSet<>(databaseNames.size());
         Range<Integer> range = shardingValue.getValueRange();
         for (Integer i = range.lowerEndpoint(); i <= range.upperEndpoint(); i++) {
-            String it =(shardingValue.getValue() < 20 ? 0:1)+"";
+            String it =(i < 20 ? 0:1)+"";
             for (String each : databaseNames) {
                 if (each.endsWith(it)) {
                     result.add(each);

@@ -10,5 +10,12 @@ public class TestHashFunction {
         System.out.println(hf.hashString("1", Charsets.UTF_8).asInt());
         System.out.println(hf.hashString("2", Charsets.UTF_8).asInt());
         System.out.println(hf.hashString("1", Charsets.UTF_8).asInt());
+
+
+
+        HashFunction hdf = Hashing.md5();
+        System.out.println(hdf.hashString("1", Charsets.UTF_8).asInt());
+        System.out.println(hdf.hashString("2", Charsets.UTF_8).asInt());
+        System.out.println(hdf.hashString("1", Charsets.UTF_8).asInt());
     }
 }
