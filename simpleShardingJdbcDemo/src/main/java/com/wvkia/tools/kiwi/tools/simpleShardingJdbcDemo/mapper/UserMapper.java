@@ -1,7 +1,7 @@
 package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper;
 
-import com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.domain.UserDo;
-import com.wvkia.tools.kiwi.simpleShardingJdbcDemo.model.example.UserExample;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.example.UserExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
