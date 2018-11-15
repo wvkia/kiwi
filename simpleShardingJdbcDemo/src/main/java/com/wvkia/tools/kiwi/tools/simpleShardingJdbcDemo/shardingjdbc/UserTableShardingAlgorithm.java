@@ -11,18 +11,18 @@ import java.util.LinkedHashSet;
  * 关键字段与分表之间的 关系
  * 对id对表数量取余
  *
- * 表格名称以余数结尾
  * user_0,user_1
  */
 public class UserTableShardingAlgorithm implements SingleKeyTableShardingAlgorithm<Integer> {
     private int tableSize=2;
+    private int databaseSize=2;
     /**
      * sql 中 = 操作时，table的映射
      */
     @Override
     public String doEqualSharding(Collection<String> tableNames, ShardingValue<Integer> shardingValue) {
         for (String each : tableNames) {
-            if (each.endsWith(shardingValue.getValue() % tableSize + "")) {
+            if (each.endsWith(shardingValue.getValue() /databaseSize  % tableSize + "")) {
                 return each;
             }
         }
@@ -37,7 +37,7 @@ public class UserTableShardingAlgorithm implements SingleKeyTableShardingAlgorit
         Collection<String> result = new LinkedHashSet<String>(tableNames.size());
         for (Integer value : shardingValue.getValues()) {
             for (String tableName : tableNames) {
-                if (tableName.endsWith(value % tableSize + "")) {
+                if (tableName.endsWith(value  /databaseSize  % tableSize + "")) {
                     result.add(tableName);
                 }
             }
@@ -55,7 +55,7 @@ public class UserTableShardingAlgorithm implements SingleKeyTableShardingAlgorit
         Range<Integer> range = (Range<Integer>) shardingValue.getValueRange();
         for (Integer i = range.lowerEndpoint(); i <= range.upperEndpoint(); i++) {
             for (String each : tableNames) {
-                if (each.endsWith(i % tableSize + "")) {
+                if (each.endsWith(i  /databaseSize  % tableSize + "")) {
                     result.add(each);
                 }
             }

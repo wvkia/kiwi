@@ -9,17 +9,16 @@ import java.util.LinkedHashSet;
 
 /**
  * 用户根据id分库
- * 大于20的放到database_1，小于20的放到database_0
  *
  * 解析关键分库字段与数据库之间的关系
  */
 public class UserDatabaseShardingAlgorithm implements SingleKeyDatabaseShardingAlgorithm<Integer> {
 
+    private int databaseSize=2;
     @Override
     public String doEqualSharding(Collection<String> databaseNames, ShardingValue<Integer> shardingValue) {
         for (String each : databaseNames) {
-            String i =(shardingValue.getValue() < 20 ? 0:1)+"";
-
+            String i =(shardingValue.getValue() % databaseSize)+"";
 
             if (each.endsWith(i)) {
                 return each;
@@ -32,7 +31,7 @@ public class UserDatabaseShardingAlgorithm implements SingleKeyDatabaseShardingA
     public Collection<String> doInSharding(Collection<String> databaseNames, ShardingValue<Integer> shardingValue) {
         Collection<String> result = new LinkedHashSet<>(databaseNames.size());
         for (Integer value : shardingValue.getValues()) {
-            String i =(value < 20 ? 0:1)+"";
+            String i =(value % databaseSize)+"";
             for (String tableName : databaseNames) {
                 if (tableName.endsWith(i)) {
                     result.add(tableName);
@@ -48,7 +47,7 @@ public class UserDatabaseShardingAlgorithm implements SingleKeyDatabaseShardingA
         Collection<String> result = new LinkedHashSet<>(databaseNames.size());
         Range<Integer> range = shardingValue.getValueRange();
         for (Integer i = range.lowerEndpoint(); i <= range.upperEndpoint(); i++) {
-            String it =(i < 20 ? 0:1)+"";
+            String it =(i % databaseSize)+"";
             for (String each : databaseNames) {
                 if (each.endsWith(it)) {
                     result.add(each);
