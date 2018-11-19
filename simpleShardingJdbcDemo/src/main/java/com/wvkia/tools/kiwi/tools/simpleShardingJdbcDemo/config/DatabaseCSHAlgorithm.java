@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+/**
+ * @dependson("datasource")的原因是datasourceRule需要在database初始化之后进行初始化
+ */
 @Component
 @DependsOn({"dataSource"})
 public class DatabaseCSHAlgorithm  implements ApplicationListener<ContextRefreshedEvent>{
