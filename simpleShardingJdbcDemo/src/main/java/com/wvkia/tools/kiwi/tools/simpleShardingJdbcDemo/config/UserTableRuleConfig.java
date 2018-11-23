@@ -40,13 +40,13 @@ public class UserTableRuleConfig {
      * @return
      */
     @Bean(name="database_0")
-    @ConfigurationProperties("spring.datasource.database0")
+    @ConfigurationProperties("spring.datasource.simpleShardingJdbc_database0")
     public DataSource purchase(){
        return DataSourceBuilder.create().build();
     }
 
     @Bean(name="database_1")
-    @ConfigurationProperties("spring.datasource.database1")
+    @ConfigurationProperties("spring.datasource.simpleShardingJdbc_database0")
     public DataSource manager(){
         return DataSourceBuilder.create().build();
     }
