@@ -18,11 +18,6 @@ CREATE TABLE `user_1` (
   PRIMARY KEY (`id`)
 ) ;
 
-CREATE TABLE `other` (
-  `id` int(11) NOT NULL,
-  `name` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ;
 
 CREATE TABLE `order_0` (
   `id` varchar(200) NOT NULL,
