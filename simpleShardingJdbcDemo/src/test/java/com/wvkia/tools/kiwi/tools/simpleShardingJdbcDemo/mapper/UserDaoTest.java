@@ -22,28 +22,6 @@ public class UserDaoTest {
     @Autowired
     private UserMapper userMapper;
 
-    private int recordSize=200;
-
-    @Before
-    public void testInit() {
-
-        for (int i = 0; i < recordSize; i++) {
-            UserDo userDo = new UserDo();
-            userDo.setId(i);
-            userDo.setName("name_id_" + i);
-
-            userMapper.insert(userDo);
-        }
-
-    }
-
-    @After
-    public void testDestroy() {
-        for (int i = 0; i < recordSize; i++) {
-            userMapper.deleteByPrimaryKey(i);
-        }
-    }
-
     /**
      * 支持分库字段get
      */

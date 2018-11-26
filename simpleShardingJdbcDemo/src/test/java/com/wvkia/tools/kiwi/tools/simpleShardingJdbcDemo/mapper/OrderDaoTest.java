@@ -14,18 +14,8 @@ public class OrderDaoTest {
     private OrderMapper orderMapper;
 
     @Test
-    public void testInsert() {
-        for (int i = 0; i < 200; i++) {
-            OrderDo orderDo = new OrderDo();
-            orderDo.setId(i+"_id_"+12345);
-            orderDo.setName(i+"_name");
-            orderMapper.insert(orderDo);
-        }
-
-    }
-    @Test
     public void testGet() {
-        String id = "3_id_12345";
+        String id = "3_id_";
         System.out.println(orderMapper.selectByPrimaryKey(id));
     }
 }
