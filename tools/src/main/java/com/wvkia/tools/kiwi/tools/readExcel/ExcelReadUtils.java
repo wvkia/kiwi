@@ -6,13 +6,41 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
 public class ExcelReadUtils {
 
 
+    /**
+     * 读取excel为workbook
+     * @param fileName
+     * @return
+     */
+    public static Workbook getWorkBook(String fileName) {
+        FileInputStream excelFile = null;
+        try {
+            excelFile = new FileInputStream(new File(fileName));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("文件不存在");
+        }
+        Workbook workbook = null;
+        try {
+             workbook = new XSSFWorkbook(excelFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("解析excel出错");
+        }
+        return workbook;
+
+    }
     /**
      * 读取全部数据
      * @param workbook
