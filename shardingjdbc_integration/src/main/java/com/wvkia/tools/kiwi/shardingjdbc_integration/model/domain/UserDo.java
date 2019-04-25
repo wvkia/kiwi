@@ -8,7 +8,5 @@ public class UserDo {
 
     private String name;
 
-    private String desc;
-
 
 }

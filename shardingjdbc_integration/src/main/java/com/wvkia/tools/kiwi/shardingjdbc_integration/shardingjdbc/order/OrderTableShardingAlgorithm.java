@@ -18,7 +18,7 @@ public class OrderTableShardingAlgorithm implements SingleKeyTableShardingAlgori
     @Override
     public String doEqualSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {
         for (String each : availableTargetNames) {
-            int hashCode = shardingValue.getValue().hashCode();
+            int hashCode = shardingValue.getValue().hashCode() & 0x7FFFFFFF;
             if (each.endsWith(hashCode % tableSize + "")) {
                 return each;
             }
@@ -30,7 +30,7 @@ public class OrderTableShardingAlgorithm implements SingleKeyTableShardingAlgori
     public Collection<String> doInSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {
         Collection<String> result = new LinkedHashSet<String>(availableTargetNames.size());
         for (String value : shardingValue.getValues()) {
-            int hashCode = value.hashCode();
+            int hashCode = value.hashCode()& 0x7FFFFFFF;
             for (String tableName : availableTargetNames) {
                 if (tableName.endsWith(hashCode % tableSize + "")) {
                     result.add(tableName);

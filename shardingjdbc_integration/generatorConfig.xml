@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="/Users/wukai/Downloads/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46.jar"/>
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.212.129:3306/simpleShardingJdbc_database0" userId="root"
+                        password="root"/>
+
+        <javaModelGenerator targetPackage="com.wvkia.tools.kiwi.shardingjdbc_integration.model"
+                            targetProject="/Users/wukai/workspace/shield-saas/souche-shield-manager">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+      
+
+<sqlMapGenerator targetPackage="com.souche.shield.manager.dao"
+            targetProject="/Users/wukai/workspace/shield-saas/souche-shield-manager" />
+
+       
+        <javaClientGenerator
+            targetPackage="com.souche.shield.manager.dao"
+            targetProject="/Users/wukai/workspace/shield-saas/souche-shield-manager"
+            type="XMLMAPPER" />
+        
+        <table tableName="security_org_version" domainObjectName="OrgVersion"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            
+        </table>
+
+    </context>
+</generatorConfiguration>

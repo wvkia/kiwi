@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.wvkia.tools.kiwi.shardingjdbc_integration.model.domain.UserDo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="desc" property="desc" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, desc
+    id, name
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wvkia.tools.kiwi.shardingjdbc_integration.model.example.UserDoExample" >
     select
@@ -99,9 +98,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.wvkia.tools.kiwi.shardingjdbc_integration.model.domain.UserDo" >
-    insert into user (id, name, desc
+    insert into user (id, name
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.wvkia.tools.kiwi.shardingjdbc_integration.model.domain.UserDo" >
@@ -113,9 +112,6 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="desc != null" >
-        desc,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -123,9 +119,6 @@
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -144,9 +137,6 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.desc != null" >
-        desc = #{record.desc,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,8 +145,7 @@
   <update id="updateByExample" parameterType="map" >
     update user
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -167,16 +156,13 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        desc = #{desc,jdbcType=VARCHAR},
-      </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wvkia.tools.kiwi.shardingjdbc_integration.model.domain.UserDo" >
     update user
-    set name = #{name,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

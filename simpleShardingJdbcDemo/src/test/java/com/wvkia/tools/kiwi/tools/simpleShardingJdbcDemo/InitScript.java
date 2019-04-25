@@ -32,14 +32,14 @@ public class InitScript {
 
     @Before
     public  void initConfig() {
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 10; i++) {
             OrderDo orderDo = new OrderDo();
             orderDo.setId(i + "_id_");
             orderDo.setName(i + "_name_");
             orderMapper.insert(orderDo);
         }
 
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 10; i++) {
             UserDo userDo = new UserDo();
             userDo.setId(i);
             userDo.setName(i+"_name_");

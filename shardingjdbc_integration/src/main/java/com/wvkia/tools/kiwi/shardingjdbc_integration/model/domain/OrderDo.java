@@ -11,8 +11,5 @@ public class OrderDo {
 
     private Integer userId;
 
-    private String desc;
-
-    private Date loginTime;
 
 }
