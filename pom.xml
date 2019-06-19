@@ -81,6 +81,13 @@
     <modules>
         <module>frametools</module>
         <module>tools</module>
+        <module>zookeeper_client</module>
+        <module>mybatis_demo</module>
+        <module>shardingjdbc_integration</module>
+        <module>simpleShardingJdbcDemo</module>
+        <module>springboot_dubbo_client</module>
+        <module>springboot_dubbo_server</module>
+        <module>springboot_rabbitmq_demo</module>
     </modules>
 
 

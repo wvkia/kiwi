@@ -6,6 +6,8 @@ import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.SortedMap;
@@ -13,8 +15,9 @@ import java.util.SortedMap;
 public class ConsistentHash<T> {
 
     //用的hash函数
-    private HashFunction hashFunction;
+//    private HashFunction hashFunction;
 
+    private static MessageDigest md5;
 
     // server虚拟节点倍数(100左右比较合理)
     private final int  numberOfReplicas;
@@ -23,8 +26,7 @@ public class ConsistentHash<T> {
     //环状节点分布圆
     private final SortedMap<Integer, T> circle = Maps.newTreeMap();
 
-    public ConsistentHash(HashFunction hashFunction, int numberOfReplicas, Collection<T> circle ) {
-        this.hashFunction = hashFunction;
+    public ConsistentHash(int numberOfReplicas, Collection<T> circle ) {
         this.numberOfReplicas = numberOfReplicas;
         for (T t : circle) {
             add(t);
@@ -41,13 +43,13 @@ public class ConsistentHash<T> {
      */
     public void add(T node) {
         for (int i = 0; i < numberOfReplicas; i++) {
-            circle.put(hashFunction.hashString(node.toString() + i, Charsets.UTF_8).asInt(), node);
+            circle.put(Hash(node.toString()), node);
         }
     }
 
     public void remove(T node) {
         for (int i = 0; i < numberOfReplicas; i++) {
-            circle.remove(hashFunction.hashString(node.toString() + i, Charsets.UTF_8).asInt());
+            circle.remove(Hash(node.toString()));
         }
     }
 
@@ -62,7 +64,7 @@ public class ConsistentHash<T> {
         }
 
         //生成client对应的hash值
-        int hash = hashFunction.hashString(key.toString(), Charsets.UTF_8).asInt();
+        int hash = Hash(key.toString());
 
         //如果没有对应此hash的server节点，获取大于等于此hash后面的server节点；如果还没有，则获取server节点分布圆的第一个节点
         if (!circle.containsKey(hash)) {
@@ -70,13 +72,33 @@ public class ConsistentHash<T> {
             //返回大于等于此hash后面的节点
             SortedMap<Integer, T> tailMap = circle.tailMap(hash);
 
-            System.out.println("原值："+key.toString()+" = "+hash);
             //如果还没有，则获取server节点分布圆的第一个节点
             hash = tailMap.isEmpty() ? circle.firstKey() : tailMap.firstKey();
-            System.out.println("获取节点 "+hash+" = "+circle.get(hash));
-            System.out.println("=====");
         }
         return circle.get(hash);
+    }
+    /**
+     * ketama算法
+     * @param key
+     * @return
+     */
+    public int Hash(String key) {
+        if (md5 == null) {
+            try {
+                md5 = MessageDigest.getInstance("MD5");
+            } catch (NoSuchAlgorithmException e) {
+                throw new IllegalArgumentException("no md5 algorythm found");
+            }
+        }
+        md5.reset();
+        md5.update(key.getBytes());
+        byte[] bKey = md5.digest();
+
+        long res = ((long) (bKey[3] & 0xFF) << 24)
+                | ((long) (bKey[2] & 0xFF) << 16)
+                | ((long) (bKey[1] & 0xFF) << 8)
+                | (bKey[0] & 0xFF);
+        return (int) res;
     }
 
     public static void main(String[] args) {
@@ -88,7 +110,7 @@ public class ConsistentHash<T> {
 
         HashFunction hf = Hashing.md5();
 
-        ConsistentHash<String> consistentHash = new ConsistentHash<String>(hf,5, nodeList);
+        ConsistentHash<String> consistentHash = new ConsistentHash<String>(5, nodeList);
 
         //circle圆分布
         for (Integer i : consistentHash.circle.keySet()) {

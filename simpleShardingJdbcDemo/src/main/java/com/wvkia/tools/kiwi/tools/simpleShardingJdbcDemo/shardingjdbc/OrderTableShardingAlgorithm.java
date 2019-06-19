@@ -11,19 +11,18 @@ import java.util.LinkedHashSet;
 
 public class OrderTableShardingAlgorithm implements SingleKeyTableShardingAlgorithm<String> {
 
-    HashFunction hf = Hashing.md5();
 
     int numberOfReplicas=100;
 
     @Override
     public String doEqualSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {
-        ConsistentHash<String> consistentHash = new ConsistentHash<String>(hf, numberOfReplicas, availableTargetNames);
+        ConsistentHash<String> consistentHash = new ConsistentHash<String>(numberOfReplicas, availableTargetNames);
         return consistentHash.get(shardingValue.getValue());
     }
 
     @Override
     public Collection<String> doInSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {
-        ConsistentHash<String> consistentHash = new ConsistentHash<String>(hf, numberOfReplicas, availableTargetNames);
+        ConsistentHash<String> consistentHash = new ConsistentHash<String>(numberOfReplicas, availableTargetNames);
         Collection<String> result = new LinkedHashSet<String>(availableTargetNames.size());
 
         for (String s : shardingValue.getValues()) {

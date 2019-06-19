@@ -25,7 +25,7 @@ public class OrderDaoTest {
     @Test
     public void insert() {
         OrderDo orderDo = new OrderDo();
-        orderDo.setId("test_readwrite_split");
+        orderDo.setId("0");
         orderDo.setName(orderDo.getId());
 
         orderDao.insert(orderDo);

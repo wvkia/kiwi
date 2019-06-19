@@ -23,15 +23,13 @@ public class DatabaseCSHAlgorithm  implements ApplicationListener<ContextRefresh
 
     private static ConsistentHash<String> consistentHash ;
 
-    HashFunction hf = Hashing.md5();
-
     int numberOfReplicas=100;
 
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         Collection<String> collection = dataSourceRule.getDataSourceNames();
-        consistentHash = new ConsistentHash(hf, numberOfReplicas, collection);
+        consistentHash = new ConsistentHash( numberOfReplicas, collection);
     }
 
     public static String getDatabase(Object key) {
