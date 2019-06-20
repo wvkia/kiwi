@@ -31,6 +31,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 分库分表配置
+ */
 @Configuration
 @MapperScan(basePackages = "com.wvkia.tools.kiwi.simpleShardingJdbcDemo.mapper",sqlSessionTemplateRef="sqlSessionTemplate")
 public class UserTableRuleConfig {
@@ -41,13 +44,13 @@ public class UserTableRuleConfig {
      */
     @Bean(name="database_0")
     @ConfigurationProperties("spring.datasource.simpleshardingjdbcdatabase0")
-    public DataSource purchase(){
+    public DataSource database_0(){
        return DataSourceBuilder.create().build();
     }
 
     @Bean(name="database_1")
     @ConfigurationProperties("spring.datasource.simpleshardingjdbcdatabase1")
-    public DataSource manager(){
+    public DataSource database_1(){
         return DataSourceBuilder.create().build();
     }
 
@@ -102,6 +105,12 @@ public class UserTableRuleConfig {
         return orderTableRule;
     }
 
+    /**
+     * 配置分配策略
+     * @param dataSourceRule 分库策略
+     * @param tableRules 分表策略
+     * @return
+     */
     @Bean
     public ShardingRule shardingRule(DataSourceRule dataSourceRule, List<TableRule>tableRules) {
         return ShardingRule.builder()
@@ -116,7 +125,7 @@ public class UserTableRuleConfig {
      * 该注解用于声明当前bean依赖于另外一个bean。所依赖的bean会被容器确保在当前bean实例化之前被实例化
      *
      * 加入该注解确保datasouce0和datsource1在datasource之前被实例化
-     * @param shardingRule
+     * @param shardingRule 通过sharding分配策略，构建datasource
      * @return
      * @throws SQLException
      */
@@ -139,6 +148,12 @@ public class UserTableRuleConfig {
         return new DataSourceTransactionManager(dataSource);
     }
 
+    /**
+     * 根据datasource配置mybatis的sqlsessionfactory
+     * @param dataSource
+     * @return
+     * @throws Exception
+     */
     @Bean
     @Primary
     public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws Exception {
@@ -148,6 +163,12 @@ public class UserTableRuleConfig {
         return bean.getObject();
     }
 
+    /**
+     * 配置sqlSessionTemplate
+     * @param sqlSessionFactory
+     * @return
+     * @throws Exception
+     */
     @Bean("sqlSessionTemplate")
     @Primary
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {

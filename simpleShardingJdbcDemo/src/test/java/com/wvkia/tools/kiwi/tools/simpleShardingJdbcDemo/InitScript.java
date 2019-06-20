@@ -2,10 +2,9 @@ package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo;
 
 import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper.OrderMapper;
 import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper.UserMapper;
-import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.OrderDo;
-import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.OrderDo;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.UserDo;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

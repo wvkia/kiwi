@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.SortedMap;
 
+/**
+ * 使用
+ * @param <T>
+ */
 public class ConsistentHash<T> {
 
     //用的hash函数

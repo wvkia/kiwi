@@ -1,10 +1,7 @@
 package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper;
 
-import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo;
-import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.example.UserExample;
-import org.junit.After;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.UserDo;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,51 +25,18 @@ public class UserDaoTest {
     @Test
     public void testGet() {
         int id = 0;
-        UserDo userDo = userMapper.selectByPrimaryKey(id);
-        System.out.println(userDo);
-        Assert.assertNotNull(userDo);
-    }
-
-    @Test
-    public void testGetname() {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.andNameEqualTo("name2");
-
-        List<UserDo> userDoList = userMapper.selectByExample(example);
-        System.out.println(userDoList);
-        Assert.assertNotNull(userDoList);
-    }
-
-    @Test
-    public void testCount() {
-        int count = userMapper.countByExample(null);
-        System.out.println(count);
-        Assert.assertTrue(count > 0);
-    }
-
-    @Test
-    public void testLike() {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.andNameLike("%name%");
-
-        List<UserDo> userDoList = userMapper.selectByExample(example);
-        System.out.println(userDoList);
-        System.out.println(userDoList.size());
-        Assert.assertNotNull(userDoList);
+        UserDo userDos = userMapper.selectById(id);
+        System.out.println(userDos);
+        Assert.assertNotNull(userDos);
     }
 
     @Test
     public void testUpdate() {
 
-        //manager库
         int id = 0;
-        UserDo userDo = new UserDo();
-        userDo.setId(0);
-        userDo.setName("namammaam");
-
-        userMapper.updateByPrimaryKeySelective(userDo);
+        userMapper.updateById(id, "测试");
+        UserDo userDo = userMapper.selectById(id);
+        Assert.assertEquals(userDo.getName(), "测试");
 
 
     }
@@ -85,7 +49,6 @@ public class UserDaoTest {
         userDo.setName("nameid28");
 
         userMapper.insert(userDo);
-
     }
 
     /**
@@ -93,18 +56,10 @@ public class UserDaoTest {
      */
     @Test
     public void testOr() {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.andIdEqualTo(2);
 
-        UserExample.Criteria criteria1 = example.createCriteria();
-        criteria1.andNameEqualTo("name20");
-        example.or(criteria1);
-
-
-        List<UserDo> userDoList = userMapper.selectByExample(example);
-        Assert.assertNotNull(userDoList);
-        System.out.println(userDoList);
+//        List<UserDo> userDoList = userMapper.selectOr(example);
+//        Assert.assertNotNull(userDoList);
+//        System.out.println(userDoList);
     }
 
     /**
@@ -112,16 +67,14 @@ public class UserDaoTest {
      */
     @Test
     public void testUpdateMuch() {
+        String sourceName = "";
+        String destName = "";
 
-        UserDo userDo = new UserDo();
-        userDo.setName("name测试");
-
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.andNameLike("%name%");
-
-
-        userMapper.updateByExampleSelective(userDo, example);
+        userMapper.updateName(sourceName, destName);
+        List<UserDo> list = userMapper.selectLikeName(sourceName);
+        for (UserDo userDo : list) {
+            Assert.assertEquals(userDo.getName(), destName);
+        }
 
 
 

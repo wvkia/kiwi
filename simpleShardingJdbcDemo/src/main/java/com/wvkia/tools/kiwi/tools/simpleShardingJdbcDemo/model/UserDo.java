@@ -1,4 +1,4 @@
-package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain;
+package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model;
 
 import lombok.Data;
 

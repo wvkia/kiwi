@@ -1,32 +1,21 @@
 package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper;
 
-import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.UserDo;
-import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.example.UserExample;
+import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.UserDo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 @Mapper
 public interface UserMapper {
-    int countByExample(UserExample example);
+    int insert(UserDo userDo);
 
-    int deleteByExample(UserExample example);
+    int deleteById(int id);
 
-    int deleteByPrimaryKey(Integer id);
+    UserDo selectById(int id);
 
-    int insert(UserDo record);
+    List<UserDo> selectLikeName(String name);
 
-    int insertSelective(UserDo record);
+    void updateName(@Param("sourceName") String sourceName, @Param("destName") String destName);
 
-    List<UserDo> selectByExample(UserExample example);
-
-    UserDo selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") UserDo record, @Param("example") UserExample example);
-
-    int updateByExample(@Param("record") UserDo record, @Param("example") UserExample example);
-
-    int updateByPrimaryKeySelective(UserDo record);
-
-    int updateByPrimaryKey(UserDo record);
+    void updateById(@Param("id") int id, @Param("name") String name);
 }

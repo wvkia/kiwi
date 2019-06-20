@@ -7,17 +7,35 @@ import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.config.DatabaseCSHAlgor
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+/**
+ * order表分库策略
+ */
 public class OrderDatabaseAlgorithm implements SingleKeyDatabaseShardingAlgorithm<String> {
+    //数据库数量
+    private int databaseSize=2;
+
     @Override
     public String doEqualSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {
-        return DatabaseCSHAlgorithm.getDatabase(shardingValue.getValue());
+
+        for (String availableTargetName : availableTargetNames) {
+            String i = shardingValue.getValue().hashCode() % databaseSize + "";
+            if (availableTargetName.endsWith(i)) {
+                return availableTargetName;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
     public Collection<String> doInSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {
         Collection<String> result = new LinkedHashSet<>(availableTargetNames.size());
         for (String value : shardingValue.getValues()) {
-            result.add(DatabaseCSHAlgorithm.getDatabase(value));
+            for (String availableTargetName : availableTargetNames) {
+                String i = value.hashCode() % databaseSize + "";
+                if (availableTargetName.endsWith(i)) {
+                    result.add(i);
+                }
+            }
         }
         return result;
     }

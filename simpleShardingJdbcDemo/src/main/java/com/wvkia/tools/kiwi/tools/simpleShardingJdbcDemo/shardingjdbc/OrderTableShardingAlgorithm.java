@@ -11,24 +11,31 @@ import java.util.LinkedHashSet;
 
 public class OrderTableShardingAlgorithm implements SingleKeyTableShardingAlgorithm<String> {
 
-
-    int numberOfReplicas=100;
-
+    private static int tableSize = 2;
+    private static int databaseSize=2;
     @Override
     public String doEqualSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {
-        ConsistentHash<String> consistentHash = new ConsistentHash<String>(numberOfReplicas, availableTargetNames);
-        return consistentHash.get(shardingValue.getValue());
+        for (String availableTargetName : availableTargetNames) {
+            String i = shardingValue.getValue().hashCode() /databaseSize  % tableSize + "";
+            if (availableTargetName.endsWith(i)) {
+                return availableTargetName;
+            }
+        }
+        throw new IllegalArgumentException();
+
     }
 
     @Override
     public Collection<String> doInSharding(Collection<String> availableTargetNames, ShardingValue<String> shardingValue) {
-        ConsistentHash<String> consistentHash = new ConsistentHash<String>(numberOfReplicas, availableTargetNames);
-        Collection<String> result = new LinkedHashSet<String>(availableTargetNames.size());
-
-        for (String s : shardingValue.getValues()) {
-            result.add(consistentHash.get(s));
+        Collection<String> result = new LinkedHashSet<String>();
+        for (String value : shardingValue.getValues()) {
+            for (String availableTargetName : availableTargetNames) {
+                String i = value.hashCode() /databaseSize % tableSize + "";
+                if (availableTargetName.endsWith(i)) {
+                    result.add(availableTargetName);
+                }
+            }
         }
-
         return result;
     }
 

@@ -1,6 +1,5 @@
 package com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.mapper;
 
-import com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.domain.OrderDo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,6 @@ public class OrderDaoTest {
     @Test
     public void testGet() {
         String id = "3_id_";
-        System.out.println(orderMapper.selectByPrimaryKey(id));
+        System.out.println(orderMapper.selectById(id));
     }
 }

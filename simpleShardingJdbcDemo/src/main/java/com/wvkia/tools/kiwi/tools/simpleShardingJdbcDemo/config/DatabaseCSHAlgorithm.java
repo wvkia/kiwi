@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 /**
+ * 初始化一致性hash算法
+ * 用于分配库
  * @dependson("datasource")的原因是datasourceRule需要在database初始化之后进行初始化
  */
 @Component
