@@ -67,8 +67,8 @@ public class UserDaoTest {
      */
     @Test
     public void testUpdateMuch() {
-        String sourceName = "";
-        String destName = "";
+        String sourceName = "name_";
+        String destName = "测试";
 
         userMapper.updateName(sourceName, destName);
         List<UserDo> list = userMapper.selectLikeName(sourceName);

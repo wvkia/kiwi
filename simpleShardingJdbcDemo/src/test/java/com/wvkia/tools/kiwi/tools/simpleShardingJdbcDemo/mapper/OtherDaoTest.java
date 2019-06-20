@@ -18,7 +18,7 @@ public class OtherDaoTest {
 
     @Test
     public void testGetOther() {
-        String name = "";
+        String name = "sdf";
         List<OtherDo> otherDos = otherMapper.selectName(name);
         Assert.assertNotNull(otherDos);
         System.out.println(otherDos);

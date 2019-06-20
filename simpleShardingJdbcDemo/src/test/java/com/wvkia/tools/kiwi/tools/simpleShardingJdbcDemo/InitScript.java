@@ -27,8 +27,6 @@ public class InitScript {
     @Autowired
     private UserMapper userMapper;
 
-    private static Random random = new Random(47);
-
     @Before
     public  void initConfig() {
         for (int i = 0; i < 10; i++) {
