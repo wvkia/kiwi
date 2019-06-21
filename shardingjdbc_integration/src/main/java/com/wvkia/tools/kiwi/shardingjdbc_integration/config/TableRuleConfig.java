@@ -30,6 +30,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 读写分离模块实现分库分表
+ */
 @Configuration
 @MapperScan(basePackages = "com.wvkia.tools.kiwi.shardingjdbc_integration.mapper",sqlSessionTemplateRef="sqlSessionTemplate")
 public class TableRuleConfig {

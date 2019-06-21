@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class UserDaoTest {
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
 
     @Test
     public void insert() {
