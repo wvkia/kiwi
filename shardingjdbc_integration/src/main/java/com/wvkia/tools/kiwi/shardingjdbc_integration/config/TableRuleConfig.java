@@ -37,6 +37,7 @@ import java.util.Map;
 @MapperScan(basePackages = "com.wvkia.tools.kiwi.shardingjdbc_integration.mapper",sqlSessionTemplateRef="sqlSessionTemplate")
 public class TableRuleConfig {
 
+    //1. 配置主备数据源
     /**配置主master database**/
     @Bean(name="database_0_master")
     @ConfigurationProperties("jdbc.database0.master")
@@ -50,6 +51,7 @@ public class TableRuleConfig {
         return DataSourceBuilder.create().build();
     }
 
+    //2. 组装datasourceRule
     @Bean("dataSourceRule")
     public DataSourceRule dataSourceRule(@Qualifier("database_0_master") DataSource database_0_master,
                                          @Qualifier("database_0_slave_0") DataSource database_0_slave_0) throws SQLException {
@@ -72,6 +74,7 @@ public class TableRuleConfig {
         return dataSourceRule;
     }
 
+    //3. 用户分表策略
     /**
      * 用户表规则配置
      * @param dataSourceRule
@@ -92,6 +95,7 @@ public class TableRuleConfig {
         return userTableRule;
     }
 
+    //4. order表分表策略
     /**
      * order表分库分表配置
      * @param dataSourceRule
@@ -109,6 +113,7 @@ public class TableRuleConfig {
     }
 
 
+    //5. 组装databaseSource
     /**
      * 构建shardingdatasource
      * 包含隐含含义，Bean注解表示的参数会被自动注入

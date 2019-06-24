@@ -20,16 +20,24 @@ public class OrderDaoTest {
     private OrderMapper orderMapper;
 
     @Test
-    public void insert() {
-        OrderDo orderDo = new OrderDo();
-        orderDo.setId("0");
-        orderDo.setName(orderDo.getId());
+    public void init() {
+        for (int i = 0; i < 10; i++) {
+            OrderDo orderDo = new OrderDo();
+            orderDo.setId(i + "");
+            orderDo.setName(orderDo.getId());
 
-        orderMapper.insert(orderDo);
+            orderMapper.insert(orderDo);
+        }
+
     }
+
+
 
     @Test
     public void get() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(orderMapper.selectById(i+""));
+        }
 
     }
 }

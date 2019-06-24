@@ -10,8 +10,8 @@ import java.util.LinkedHashSet;
 /**
  * user表进行分表策略
  * 对id进行对库取余
- * 当前表格 user_0、user_1、user_2
- * 对id取余 id % 3 如果为0 user_0，如果为1 放到user_1,如果2 user_2
+ * 当前表格 user_0、user_1
+ * 对id取余 id % 2 如果为0 user_0，如果为1 放到user_1
  */
 public class UserTableShardingAlgorithm  implements SingleKeyTableShardingAlgorithm<Integer> {
 
