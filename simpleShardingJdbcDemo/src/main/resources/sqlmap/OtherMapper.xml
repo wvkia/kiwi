@@ -15,4 +15,9 @@
       select * from other where name like concat('%',#{name},'%');
 
     </select>
+  <select id="selectOr" resultType="com.wvkia.tools.kiwi.tools.simpleShardingJdbcDemo.model.OtherDo">
+    select * from other where name ='sdf' or id='1';
+  </select>
+
+
 </mapper>

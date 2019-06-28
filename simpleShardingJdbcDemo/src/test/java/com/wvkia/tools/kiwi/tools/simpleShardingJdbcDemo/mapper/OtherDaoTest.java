@@ -24,4 +24,9 @@ public class OtherDaoTest {
         System.out.println(otherDos);
     }
 
+    @Test
+    public void testOr() {
+        otherMapper.selectOr();
+    }
+
 }

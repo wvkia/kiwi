@@ -12,4 +12,6 @@ public interface OtherMapper {
     void deleteById(String id);
 
     List<OtherDo> selectName(String name);
+
+    List<OtherDo> selectOr();
 }
