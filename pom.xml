@@ -88,6 +88,7 @@
         <module>springboot_dubbo_client</module>
         <module>springboot_dubbo_server</module>
         <module>springboot_rabbitmq_demo</module>
+        <module>MyBatisSource</module>
     </modules>
 
 
