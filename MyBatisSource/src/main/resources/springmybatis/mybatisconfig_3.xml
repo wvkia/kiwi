@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <typeAliases>
+        <typeAlias alias="Article" type="demo_2.Article"/>
+        <typeAlias alias="Author" type="demo_2.Author"/>
+
+    </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="demo_2.ArticleTypeHandler" javaType="demo_2.ArticleTypeEnum"/>
+    </typeHandlers>
+
+</configuration>
