@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo_2.ArticleDao">
+
+
+    <resultMap id="authorResult" type="demo_2.Author">
+        <id property="id" column="author_id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <collection property="articles" resultMap="articleResult"/>
+    </resultMap>
+
+
+
+
+    <resultMap id="articleResult" type="demo_2.Article">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="articleType" column="article_type" typeHandler="demo_2.ArticleTypeHandler"/>
+        <result property="content" column="content"></result>
+        <result property="createTime" column="create_time"/>
+        <association property="author" javaType="demo_2.Author" resultMap="authorResult"/>
+    </resultMap>
+
+
+
+
+    <select id="findOne" resultMap="articleResult">
+        select
+        ar.id,ar.author_id,ar.title,ar.article_type,ar.content,ar.create_time,au.name,au.sex
+         from article ar,author au where au.id=ar.author_id and ar.id=#{id};
+    </select>
+</mapper>
