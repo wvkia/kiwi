@@ -89,6 +89,7 @@
         <module>springboot_dubbo_server</module>
         <module>springboot_rabbitmq_demo</module>
         <module>MyBatisSource</module>
+        <module>tinymybatis</module>
     </modules>
 
 

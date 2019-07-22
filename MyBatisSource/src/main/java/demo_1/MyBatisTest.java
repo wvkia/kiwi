@@ -34,6 +34,21 @@ public class MyBatisTest {
 
         }
 
+        //或者第二种
+        sqlSession = sqlSessionFactory.openSession();
+        try {
+            String statement = "demo_1.PoJoMapper.selectAll";
+
+            List<PoJo> poJos = sqlSession.selectList(statement);
+            for (PoJo poJo : poJos) {
+                System.out.println(poJo.getId() + "_" + poJo.getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+
 
     }
 

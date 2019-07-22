@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper nameSpace="com.wvkia.tools.kiwi.tinymybatis.PoJoMapper">
+    <select id="getById" resultType ="com.wvkia.tools.kiwi.tinymybatis.PoJo">
+        select * from pojo where id = ?
+    </select>
+</mapper>
