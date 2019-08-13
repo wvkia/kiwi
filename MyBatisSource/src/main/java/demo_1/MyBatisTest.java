@@ -12,19 +12,17 @@ import java.util.List;
 public class MyBatisTest {
 
     public static void main(String[] args) throws IOException {
-        SqlSessionFactory sqlSessionFactory;
 
         String resource = "demo_1/mybatisconfig_1.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
-        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
         inputStream.close();
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             PoJoMapper poJoMapper = sqlSession.getMapper(PoJoMapper.class);
-            List<PoJo> poJos = poJoMapper.selectAll();
+            List<PoJo> poJos = poJoMapper.selectId("1");
             for (PoJo poJo : poJos) {
                 System.out.println(poJo.getId()+"_"+poJo.getName());
             }
@@ -38,7 +36,6 @@ public class MyBatisTest {
         sqlSession = sqlSessionFactory.openSession();
         try {
             String statement = "demo_1.PoJoMapper.selectAll";
-
             List<PoJo> poJos = sqlSession.selectList(statement);
             for (PoJo poJo : poJos) {
                 System.out.println(poJo.getId() + "_" + poJo.getName());

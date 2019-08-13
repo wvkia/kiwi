@@ -1,0 +1,2 @@
+这个版本的servlet容器只是简单的运用了Java网络编程，用ServerSocket来监听请求127。0。0。1，然后用Socket来连接ServerSocket，
+使用Socket的inputStream作为数据读取，outputStream作为数据写入，所以自己控制HTTP协议的格式，然后给浏览器显示

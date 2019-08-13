@@ -90,6 +90,8 @@
         <module>springboot_rabbitmq_demo</module>
         <module>MyBatisSource</module>
         <module>tinymybatis</module>
+        <module>dubboDemo</module>
+        <module>MyTomcat</module>
     </modules>
 
 

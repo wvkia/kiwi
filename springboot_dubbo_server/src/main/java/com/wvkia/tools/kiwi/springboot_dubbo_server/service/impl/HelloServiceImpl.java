@@ -17,7 +17,7 @@ public class HelloServiceImpl implements HelloService {
     public String sayHello() {
         //获取dubbo信息
         boolean isConsumer = RpcContext.getContext().isConsumerSide();
-        boolean isProvider = RpcContext.getContext().isProviderSide();
+        boolean isProvider = RpcContext.getContext().isProviderSide();Integer
 
         log.info("isConsumer : " + isConsumer + " isProvider: " + isProvider);
         log.info("远程ip removeIp = "+RpcContext.getContext().getRemoteAddressString()+",方法名method = "+RpcContext.getContext().getMethodName());
