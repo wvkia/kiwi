@@ -28,7 +28,7 @@
         <guava.version>19.0</guava.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <apache.poi.version>3.11-beta2</apache.poi.version>
-        <commons-collections.version>3.2.1</commons-collections.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
     </properties>
 
     <dependencies>
